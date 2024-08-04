@@ -1,10 +1,10 @@
-## Typescript NestJS Template
+# Full-Text Search Benchmarks
 
-### Description
+## Description
 
-My take on a boilerplate for Nest.js Typescript projects
+Nest.js application to test and benchmark Full-Text Search solutions
 
-### Dependencies
+## Dependencies
 
 Set node version using:
 
@@ -20,7 +20,7 @@ $ npm install
 
 > For M1 Users check [here](###M1-Users)
 
-### Running the app
+## Running the app
 
 We need an instance of mySQL running to connect to and also one from RabbitMQ. For that, we have a docker-compose file to help. Just execute the following command to spin it up:
 
@@ -42,7 +42,7 @@ $ npm run start
 $ npm run start:dev
 ```
 
-### Testing
+## Testing
 
 We have several kinds of tests for our application:
 
@@ -57,11 +57,11 @@ $ npm run test:int
 $ npm run test
 ```
 
-### Contributing
+## Contributing
 
 We encourage small and testable commits. All commits must start with the story card they refer to and a message indicating what exactly that commit changes. If you're pairing with someone, please add that person as a contributor as well. You can add this to your commit message: `Co-authored-by: name <name@example.com>`.
 
-#### Database migrations
+## Database migrations
 
 Before generating a new migration, you must build your ts files into js files. To automatically build and generate a new migration based on our TypeORM entities, simply execute:
 
