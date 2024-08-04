@@ -17,7 +17,10 @@ import AppLogger from '../logging/app.logger';
   exports: [HttpModule],
 })
 export default class AppHttpModule implements OnModuleInit {
-  constructor(private httpService: HttpService, private logger: AppLogger) {}
+  constructor(
+    private httpService: HttpService,
+    private logger: AppLogger,
+  ) {}
 
   public onModuleInit(): void {
     let requestStart;

@@ -1,6 +1,5 @@
 import winston from 'winston';
 import { Injectable, LoggerService } from '@nestjs/common';
-import newrelicFormatter from '@newrelic/winston-enricher';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -35,9 +34,7 @@ export default class AppLogger implements LoggerService {
 
   private getFormats = (): winston.Logform.Format[] => {
     const formats = [winston.format.timestamp(), winston.format.json()];
-    return isProduction
-      ? [...formats, newrelicFormatter(winston)()]
-      : [...formats, winston.format.prettyPrint()];
+    return [...formats, winston.format.prettyPrint()];
   };
 
   private getDefaultMeta = (): Record<string, any> => {
