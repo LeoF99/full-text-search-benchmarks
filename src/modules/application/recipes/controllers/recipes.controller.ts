@@ -1,6 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import RecipeService from '../domain/recipe.service';
-import BulkInsertRecipesRequestDto from './dtos/bulkInsertRecipes.request.dto';
+import BulkInsertRecipesRequestDto, {
+  BulkInsertRecipesRequestItem,
+} from './dtos/bulkInsertRecipes.request.dto';
 
 @Controller('recipes')
 export default class RecipesController {
@@ -8,9 +10,9 @@ export default class RecipesController {
 
   @Post()
   async bulkInsert(
-    @Body() bulkInsertRecipesRequest: BulkInsertRecipesRequestDto[],
+    @Body() bulkInsertRecipesRequest: BulkInsertRecipesRequestDto,
   ): Promise<void> {
-    const recipes = BulkInsertRecipesRequestDto.toBulkDomain(
+    const recipes = BulkInsertRecipesRequestItem.toBulkDomain(
       bulkInsertRecipesRequest,
     );
 
