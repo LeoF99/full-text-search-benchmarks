@@ -2,9 +2,10 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import LoggingInterceptor from '../interceptors/logging.interceptor';
 import { ConfigurationModules } from './configuration';
+import { applicationModules } from './application';
 
 @Module({
-  imports: [...ConfigurationModules],
+  imports: [...ConfigurationModules, ...applicationModules],
   providers: [{ provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }],
 })
 export default class AppModule implements NestModule {

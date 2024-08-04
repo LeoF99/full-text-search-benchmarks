@@ -5,11 +5,12 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Recipe from '../../domain/recipe';
 
 @Entity('recipes')
 export class RecipeEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id?: string;
 
   @Column()
   title: string;
@@ -21,8 +22,30 @@ export class RecipeEntity {
   instructions: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt?: Date;
+
+  constructor(args: {
+    id?: string;
+    title: string;
+    ingredients: string;
+    instructions: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+  }) {
+    Object.assign(this, args);
+  }
+
+  static fromDomain(recipe: Recipe): RecipeEntity {
+    return new RecipeEntity({
+      id: recipe.id,
+      title: recipe.title,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions,
+      createdAt: recipe.createdAt,
+      updatedAt: recipe.updatedAt,
+    });
+  }
 }
