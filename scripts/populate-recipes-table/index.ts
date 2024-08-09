@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import fs from 'fs';
-import csv from 'csv-parser';
 import path from 'path';
 import axios from 'axios';
+import { parse } from 'csv-parse';
 
 const FILE_PATH = path.join(__dirname, '..', '..', 'assets', 'recipes.csv');
 
@@ -21,22 +21,14 @@ async function processCsvFile(
   filePath: string,
   callback: (data: any) => Promise<void>,
 ): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
-    const readStream = fs.createReadStream(filePath);
-    readStream
-      .pipe(csv())
-      .on('data', async (data) => {
-        await callback(data);
-      })
-      .on('end', () => {
-        console.log('CSV file successfully processed');
-        resolve();
-      })
-      .on('error', (error) => {
-        console.error(error);
-        reject(error);
-      });
-  });
+  const readStream = fs
+    .createReadStream(filePath)
+    .pipe(parse({ delimiter: ',', columns: true }));
+
+  for await (const row of readStream) {
+    callback(row);
+    await sleep(100);
+  }
 }
 
 function parseArrayStringToString(arrayString: string): string {
