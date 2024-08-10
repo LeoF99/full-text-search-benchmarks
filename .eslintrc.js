@@ -30,7 +30,7 @@ module.exports = {
     "no-unused-vars": 'off',
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/test/**/*.ts'] },
+      { devDependencies: ['**/test/**/*.ts', '**/*.spec.ts', '**/*.int-spec.ts'] },
     ],
     'class-methods-use-this': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
