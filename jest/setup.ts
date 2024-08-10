@@ -21,7 +21,7 @@ const waitForContainer = async (containerName: string): Promise<void> => {
 };
 
 const startContainers = async (): Promise<void> => {
-  await exec(`docker-compose up -d db queue`);
+  await exec(`docker-compose up -d db`);
 };
 
 const setupEnvironment = async (): Promise<void> => {
@@ -29,7 +29,6 @@ const setupEnvironment = async (): Promise<void> => {
   await startContainers();
   process.stdout.write('Waiting...');
   await waitForContainer('boilerplate_service_db');
-  await waitForContainer('boilerplate_service_queue');
   process.stdout.write('Done!\n');
 };
 
