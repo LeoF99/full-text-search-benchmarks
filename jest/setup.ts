@@ -21,14 +21,25 @@ const waitForContainer = async (containerName: string): Promise<void> => {
 };
 
 const startContainers = async (): Promise<void> => {
-  await exec(`docker-compose up -d db`);
+  await exec(`docker-compose -f docker-compose.test.yml up -d`);
 };
 
 const setupEnvironment = async (): Promise<void> => {
   process.stdout.write('\nSetting up containers for tests.\n');
   await startContainers();
   process.stdout.write('Waiting...');
-  await waitForContainer('boilerplate_service_db');
+  await waitForContainer('full-text-search-benchmarks-test-db-1');
+  process.stdout.write('Done!\n');
+};
+
+const setupDatabase = async (): Promise<void> => {
+  process.stdout.write('\nRunning database setup and migrations.\n');
+  if (process.env.CI) {
+    // eslint-disable-next-line no-template-curly-in-string
+    await exec('bash -c "${PACKAGE_MANAGER_RUNNER} db:migration:run"');
+  } else {
+    await exec('npm run migration:run');
+  }
   process.stdout.write('Done!\n');
 };
 
